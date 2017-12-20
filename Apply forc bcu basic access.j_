@@ -1,0 +1,61 @@
+describe('Its Toto B', function(){
+
+  beforeEach(function() {
+	 cy.visit('http://10.97.6.163:8090/bankfastApply/') 
+  })
+	
+  it('Toto B Sample Test', function(){  
+	cy.get('a').contains('Apply for bcu basic access').click()
+	cy.get('input[name="privacyCheck"]').click()
+	cy.get('label[class="yes-no-label"][for="isExistingCustomer_false"]').click()
+	cy.get('select[name="applicantType"]').select('Single', {force:true})
+	cy.get('input[value="Accept & Apply"]').click()	
+	
+	// Application information - Personal details
+	cy.get('select[id="applicantDetailsCommand.title"]').select('Mr', {force:true})
+	cy.get('input[name="applicantDetailsCommand.firstName"]').type('Toto')
+	cy.get('input[name="applicantDetailsCommand.middleName"]').type('Butch')
+	cy.get('input[name="applicantDetailsCommand.lastName"]').type('Rebalde')
+	cy.get('select[name="applicantDetailsCommand.gender"]').select('Male', {force:true})
+	
+	cy.get('input[name="applicantDetailsCommand.dateOfBirth"]').type('10/10/1990')
+	cy.get('input[name="applicantDetailsCommand.firstName"]').click()
+	cy.get('select[name="applicantDetailsCommand.occupation"]').select('Legal', {force:true})
+	
+	// Application information - Contact details
+	cy.get('#emailAddress').type('totoButch@rebalde.com')
+	cy.get('#emailAddressTwo').type('totoButch@rebalde.com')
+	cy.get('#homePhoneNumber').type('09999999999')
+	cy.get('#preferredPhone').select('Phone', {force:true})
+	
+	// Application information - Security details
+	cy.get('input[name="securityDetails.securityChallengeItems[0].answer"]').type('Passw0')
+	cy.get('input[name="securityDetails.securityChallengeItems[1].answer"]').type('totoB')
+	cy.get('input[value="Continue"]').click()	
+	
+	// Address details
+	let adress = 'Queen Victoria Bldg Level 1 1 Walker St, North Sydney NSW 2060, AU' 
+	cy.get('input[id="addressInput_current"]')
+	.type('Queen Victoria', {force: true}) 
+	.type('{enter}', {force: true}) 
+
+	// Address details - Manual Address Entry
+	cy.get('input[id="currentStreetNum"]').type('123')
+	cy.get('input[id="currentStreetName"]').type('Walker')
+	cy.get('input[id="currentStreetType"]').type('Street')
+	cy.get('input[id="currentCity"]').type('North Sydney')
+	cy.get('select[id="currentCounty"]').select('NSW', {force: true})
+	cy.get('input[id="currentPostCode"]').type('3000')
+	cy.get('select[id="timeAtAddress"]').select('More Than 1 Year', {force: true})
+	cy.get('input[value="Continue"]').click()	
+	
+	// Contact Method
+	cy.get('select[id="superFundDetails.affiliationName"]').select('Email', {force: true})
+	cy.get('select[id="creditUnionDetails.affiliationName"]').select('Yes', {force: true})
+	cy.get('input[value="Continue"]').click()	
+	
+	// Confirmation
+	cy.get('input[value="Submit Application"]').click()
+	
+  })
+})
